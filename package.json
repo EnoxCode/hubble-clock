@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A clock visualization supports multiple timezones",
   "private": true,
+  "type": "module",
   "keywords": [
     "hubble-module"
   ],
