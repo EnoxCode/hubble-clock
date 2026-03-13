@@ -1,6 +1,6 @@
 {
   "name": "hubble-clock",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A clock visualization supports multiple timezones",
   "minAppVersion": "0.1.0",
   "type": [
@@ -36,10 +36,22 @@
           "default": "L",
           "description": "Clock display size",
           "choices": [
-            { "label": "Small", "value": "S" },
-            { "label": "Medium", "value": "M" },
-            { "label": "Large", "value": "L" },
-            { "label": "Extra Large", "value": "XL" }
+            {
+              "label": "Small",
+              "value": "S"
+            },
+            {
+              "label": "Medium",
+              "value": "M"
+            },
+            {
+              "label": "Large",
+              "value": "L"
+            },
+            {
+              "label": "Extra Large",
+              "value": "XL"
+            }
           ]
         },
         {
@@ -50,8 +62,14 @@
           "default": "24h",
           "description": "24-hour or AM/PM display",
           "choices": [
-            { "label": "24h", "value": "24h" },
-            { "label": "AM/PM", "value": "ampm" }
+            {
+              "label": "24h",
+              "value": "24h"
+            },
+            {
+              "label": "AM/PM",
+              "value": "ampm"
+            }
           ]
         }
       ]
@@ -62,7 +80,10 @@
       "path": "timezone-grid",
       "mockData": {},
       "configPanels": [
-        { "label": "Configure", "panel": "configure" }
+        {
+          "label": "Configure",
+          "panel": "configure"
+        }
       ],
       "properties": [
         {
