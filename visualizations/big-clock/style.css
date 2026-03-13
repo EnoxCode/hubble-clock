@@ -1,0 +1,39 @@
+.big-clock-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 16px;
+}
+
+.big-clock-time {
+  font-weight: 200;
+  letter-spacing: 0.05em;
+  color: var(--hubble-text-primary);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.big-clock-time.size-S {
+  font-size: 40px;
+}
+
+.big-clock-time.size-M {
+  font-size: 72px;
+}
+
+.big-clock-time.size-L {
+  font-size: 100px;
+}
+
+.big-clock-time.size-XL {
+  font-size: 140px;
+}
+
+.big-clock-date {
+  font-size: 16px;
+  color: var(--hubble-text-secondary);
+  margin-top: 10px;
+  letter-spacing: 0.03em;
+}

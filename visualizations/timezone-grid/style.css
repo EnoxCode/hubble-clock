@@ -1,0 +1,50 @@
+.timezone-grid-container {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 8px;
+  height: 100%;
+}
+
+.timezone-grid-empty {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 13px;
+  color: var(--hubble-text-secondary);
+  padding: 24px;
+}
+
+.timezone-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+}
+
+.timezone-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--hubble-text-secondary);
+  width: 80px;
+  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timezone-time {
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: var(--hubble-text-primary);
+  flex: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.timezone-day-diff {
+  font-size: 10px;
+  color: var(--hubble-text-secondary);
+  font-style: italic;
+  flex-shrink: 0;
+}

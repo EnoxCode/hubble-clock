@@ -62,17 +62,37 @@ import { Button, IconButton, Input, Select, Slider, Toggle, ColorPicker, StatusD
 | `Field` | Form field wrapper with label and validation |
 | `Collapsible` | Expandable/collapsible section |
 
-### Key CSS variables
+### CSS variables
 
-```css
---hubble-text-primary       /* Main text color */
---hubble-text-secondary     /* Muted text */
---hubble-panel-bg           /* Glassmorphism panel background */
---hubble-panel-blur         /* Backdrop blur value */
---hubble-border             /* Standard border style */
---hubble-radius-lg          /* Large border radius */
---hubble-accent             /* Accent/brand color */
-```
+| Variable | Description |
+|---|---|
+| `--hubble-bg` | Page/window background color |
+| `--hubble-surface` | Surface color for elevated elements |
+| `--hubble-bg-gradient` | Background gradient (used on the dashboard) |
+| `--hubble-panel-bg` | Widget/panel background (semi-transparent) |
+| `--hubble-panel-border` | Widget/panel border color |
+| `--hubble-panel-blur` | Backdrop blur amount (e.g. `12px`) |
+| `--hubble-panel-shadow` | Widget/panel box shadow |
+| `--hubble-panel-subtle-bg` | Subtler panel background for nested sections |
+| `--hubble-panel-subtle-blur` | Backdrop blur for subtler panels |
+| `--hubble-text-primary` | Primary text color |
+| `--hubble-text-secondary` | Secondary/muted text color |
+| `--hubble-interactive-hover` | Background color on interactive element hover |
+| `--hubble-input-bg` | Input field background |
+| `--hubble-accent` | Primary accent/brand color |
+| `--hubble-accent-hover` | Accent color on hover |
+| `--hubble-danger` | Destructive action / error color |
+| `--hubble-success` | Success state color |
+| `--hubble-warning` | Warning state color |
+| `--hubble-radius-sm` | Small border radius |
+| `--hubble-radius-md` | Medium border radius |
+| `--hubble-radius-lg` | Large border radius |
+| `--hubble-radius-xl` | Extra-large border radius |
+| `--hubble-border` | Shorthand border declaration (width + style + color) |
+| `--hubble-font-family` | Base font family |
+| `--hubble-font-size-sm` | Small font size |
+| `--hubble-font-size-md` | Medium/base font size |
+| `--hubble-font-size-lg` | Large font size |
 
 ---
 
@@ -95,6 +115,43 @@ import { Button, IconButton, Input, Select, Slider, Toggle, ColorPicker, StatusD
 | `sdk.getConnectorState` | `(moduleName: string, topic?: string) => unknown \| null` | Read last emitted data from another connector |
 | `sdk.getDashboardState` | `() => DashboardState` | Get active page, screen status, page list |
 | `sdk.notify` | `(message: string, options?) => void` | Push notification to dashboard |
+| `sdk.onApiCall` | `(handler: ({action, body}) => Promise<unknown>) => void` | Handle custom API endpoint calls |
+
+**`sdk.notify` options:**
+```ts
+sdk.notify('Timer done!', { level: 'info', persistent: false });
+// level: 'info' | 'warn' | 'error'  (default: 'info')
+// persistent: stay until dismissed  (default: false)
+```
+
+**`sdk.onApiCall` — custom API endpoints:**
+```ts
+// Declare endpoints in manifest.json under "endpoints"
+// Each endpoint path maps to an action string in the handler
+sdk.onApiCall(async ({ action, body }) => {
+  switch (action) {
+    case 'play': {
+      const { url } = body as { url: string };
+      return { ok: true, url };
+    }
+    case 'stop':
+      return { ok: true };
+    default:
+      return { error: `Unknown action: ${action}` };
+  }
+});
+```
+
+**`sdk.oauth` — OAuth token access:**
+```ts
+// Requires oauth: { provider: 'google', scopes: [...] } in manifest.json
+if (!sdk.oauth.isAuthorized()) {
+  sdk.emit('hubble-clock:data', { error: 'Not authorized' });
+  return;
+}
+const token = sdk.oauth.getAccessToken();   // string | null
+const tokens = sdk.oauth.getTokens();       // full token object (access_token, refresh_token, ...)
+```
 
 ### Client SDK (hooks — use in visualizations/*/index.tsx)
 
@@ -195,3 +252,33 @@ useEffect(() => {
   return unsub;
 }, [sdk]);
 ```
+
+---
+
+## Widget Presentation Modes
+
+Visualizations can change how they are displayed via the Client SDK:
+
+```tsx
+const sdk = useHubbleSDK();
+
+sdk.expandWidget();          // Expand to full-page overlay
+sdk.dismissWidget();         // Return to default contained state
+sdk.pinWidget();             // Permanent full-page (never auto-dismisses)
+sdk.timedExpand(5000);       // Full-page for 5 seconds, then auto-dismiss
+sdk.requestAcknowledge();    // Full-page until user presses a hardware button
+```
+
+Use `requestAcknowledge()` for alerts that require attention (e.g., timer done, security alert). Use `timedExpand()` for brief notifications.
+
+---
+
+## Examples
+
+See `EXAMPLES.md` in this directory for 6 complete working module patterns:
+- Weather Connector (scheduled HTTP + emit)
+- Cooking Timer (local widget state + hardware buttons)
+- Shopping List Hybrid (collection storage + connector/viz)
+- Google Calendar OAuth (oauth flow + googleapis)
+- Lyrics (cross-module `getConnectorState` + storage cache)
+- YouTube API pass-through (`onApiCall` custom endpoints)

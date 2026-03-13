@@ -1,0 +1,80 @@
+<h2>Both Visualizations — Design Preview</h2>
+<p class="subtitle">Confirm these designs look right before we write the spec</p>
+
+<div class="split" style="gap:24px;align-items:flex-start;">
+
+  <!-- Big Clock -->
+  <div class="mockup" style="flex:1;">
+    <div class="mockup-header">Big Clock (size: L, 24h, Europe/Amsterdam)</div>
+    <div class="mockup-body" style="background:#0d1117;border-radius:0 0 8px 8px;padding:32px 24px;font-family:monospace;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;">
+      <div style="color:#fff;font-size:100px;font-weight:200;letter-spacing:4px;line-height:1;">14:32</div>
+      <div style="color:#888;font-size:16px;margin-top:10px;letter-spacing:1px;">Friday, March 13</div>
+    </div>
+  </div>
+
+  <!-- Timezone Grid -->
+  <div class="mockup" style="flex:1;">
+    <div class="mockup-header">Timezone Widget (3 configured zones)</div>
+    <div class="mockup-body" style="background:#0d1117;border-radius:0 0 8px 8px;padding:20px 16px;font-family:monospace;display:flex;flex-direction:column;gap:2px;min-height:200px;justify-content:center;">
+      <div style="display:flex;align-items:center;gap:12px;padding:8px 10px;">
+        <div style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;width:80px;">Amsterdam</div>
+        <div style="color:#fff;font-size:22px;font-weight:300;letter-spacing:2px;flex:1;">14:32</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:8px 10px;">
+        <div style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;width:80px;">New York</div>
+        <div style="color:#fff;font-size:22px;font-weight:300;letter-spacing:2px;flex:1;">08:32</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;padding:8px 10px;">
+        <div style="color:#999;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;width:80px;">Tokyo</div>
+        <div style="color:#fff;font-size:22px;font-weight:300;letter-spacing:2px;flex:1;">22:32</div>
+        <div style="color:#555;font-size:10px;font-style:italic;">+1d</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:32px;">
+<h3>Big Clock — Size Presets</h3>
+<p class="subtitle">T-shirt sizes map to time font size</p>
+<div style="display:flex;gap:16px;align-items:flex-end;background:#0d1117;border-radius:8px;padding:24px;font-family:monospace;margin-top:8px;">
+  <div style="text-align:center;flex:1;">
+    <div style="color:#fff;font-size:36px;font-weight:200;letter-spacing:2px;">14:32</div>
+    <div style="color:#555;font-size:11px;margin-top:6px;">S</div>
+  </div>
+  <div style="text-align:center;flex:1;">
+    <div style="color:#fff;font-size:60px;font-weight:200;letter-spacing:3px;">14:32</div>
+    <div style="color:#555;font-size:11px;margin-top:6px;">M</div>
+  </div>
+  <div style="text-align:center;flex:1;">
+    <div style="color:#fff;font-size:90px;font-weight:200;letter-spacing:3px;">14:32</div>
+    <div style="color:#555;font-size:11px;margin-top:6px;">L</div>
+  </div>
+  <div style="text-align:center;flex:1;">
+    <div style="color:#fff;font-size:130px;font-weight:200;letter-spacing:4px;">14:32</div>
+    <div style="color:#555;font-size:11px;margin-top:6px;">XL</div>
+  </div>
+</div>
+</div>
+
+<div style="margin-top:32px;">
+<h3>Timezone Config Panel (sketch)</h3>
+<p class="subtitle">Manage timezones via a custom configure panel</p>
+<div style="background:#0d1117;border-radius:8px;padding:20px;margin-top:8px;display:flex;flex-direction:column;gap:10px;">
+  <div style="display:flex;gap:8px;align-items:center;">
+    <div class="mock-input" style="flex:1;font-size:12px;">Amsterdam</div>
+    <div class="mock-input" style="flex:2;font-size:12px;">Europe/Amsterdam</div>
+    <div class="mock-button" style="font-size:11px;padding:4px 8px;background:#333;color:#999;border:1px solid #444;">✕</div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <div class="mock-input" style="flex:1;font-size:12px;">New York</div>
+    <div class="mock-input" style="flex:2;font-size:12px;">America/New_York</div>
+    <div class="mock-button" style="font-size:11px;padding:4px 8px;background:#333;color:#999;border:1px solid #444;">✕</div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;opacity:0.4;">
+    <div class="mock-input" style="flex:1;font-size:12px;color:#555;">Label...</div>
+    <div class="mock-input" style="flex:2;font-size:12px;color:#555;">Timezone...</div>
+    <div class="mock-button" style="font-size:11px;padding:4px 8px;background:#222;color:#555;border:1px solid #333;">+</div>
+  </div>
+</div>
+</div>

@@ -8,15 +8,75 @@
   ],
   "visualizations": [
     {
-      "name": "default",
-      "description": "HubbleClock default visualization",
-      "path": "default",
+      "name": "Big Clock",
+      "description": "A large clock for your home timezone",
+      "path": "big-clock",
       "properties": [
         {
           "name": "title",
+          "label": "Title",
           "type": "string",
           "required": true,
           "description": "Widget title displayed in the edit interface"
+        },
+        {
+          "name": "timezone",
+          "label": "Timezone",
+          "type": "string",
+          "required": false,
+          "default": "Europe/Amsterdam",
+          "description": "IANA timezone string (e.g. America/New_York)"
+        },
+        {
+          "name": "size",
+          "label": "Size",
+          "type": "choice",
+          "required": false,
+          "default": "L",
+          "description": "Clock display size",
+          "choices": [
+            { "label": "Small", "value": "S" },
+            { "label": "Medium", "value": "M" },
+            { "label": "Large", "value": "L" },
+            { "label": "Extra Large", "value": "XL" }
+          ]
+        },
+        {
+          "name": "format",
+          "label": "Time Format",
+          "type": "choice",
+          "required": false,
+          "default": "24h",
+          "description": "24-hour or AM/PM display",
+          "choices": [
+            { "label": "24h", "value": "24h" },
+            { "label": "AM/PM", "value": "ampm" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Timezone Grid",
+      "description": "Monitor multiple timezones at a glance",
+      "path": "timezone-grid",
+      "configPanels": [
+        { "label": "Configure", "panel": "configure" }
+      ],
+      "properties": [
+        {
+          "name": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "description": "Widget title displayed in the edit interface"
+        },
+        {
+          "name": "timezones",
+          "label": "Timezones",
+          "type": "json",
+          "required": false,
+          "default": [],
+          "description": "List of timezone entries (managed via Configure panel)"
         }
       ]
     }
