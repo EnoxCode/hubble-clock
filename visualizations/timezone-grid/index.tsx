@@ -16,7 +16,7 @@ const TimezoneGridViz = () => {
   const config = useWidgetConfig<TimezoneGridConfig>();
   const [now, setNow] = useState(() => new Date());
 
-  const timezones = config.timezones ?? [];
+  const timezones = (config.timezones ?? []).filter((e) => e.tz?.trim());
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 60000);
