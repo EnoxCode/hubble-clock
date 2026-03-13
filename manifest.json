@@ -11,6 +11,7 @@
       "name": "Big Clock",
       "description": "A large clock for your home timezone",
       "path": "big-clock",
+      "mockData": {},
       "properties": [
         {
           "name": "title",
@@ -59,6 +60,7 @@
       "name": "Timezone Grid",
       "description": "Monitor multiple timezones at a glance",
       "path": "timezone-grid",
+      "mockData": {},
       "configPanels": [
         { "label": "Configure", "panel": "configure" }
       ],
