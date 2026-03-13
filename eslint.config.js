@@ -22,6 +22,9 @@ export default [
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
+      // Pin only the two foundational rules — v7's recommended.rules expanded
+      // to 17 rules (purity, immutability, gating, etc.) that are too opinionated
+      // for this codebase. Explicit pins keep this intentional.
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
     },

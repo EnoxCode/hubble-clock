@@ -12,7 +12,6 @@ interface TimezoneGridConfig {
   timezones?: TimezoneEntry[];
 }
 
-
 const TimezoneGridViz = () => {
   const config = useWidgetConfig<TimezoneGridConfig>();
   const [now, setNow] = useState(() => new Date());
