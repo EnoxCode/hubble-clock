@@ -1,6 +1,6 @@
 {
   "name": "hubble-module-hubble-clock",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A clock visualization supports multiple timezones",
   "private": true,
   "type": "module",
