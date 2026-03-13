@@ -1,0 +1,24 @@
+{
+  "name": "hubble-clock",
+  "version": "0.1.0",
+  "description": "A clock visualization supports multiple timezones",
+  "minAppVersion": "0.1.0",
+  "type": [
+    "visualization"
+  ],
+  "visualizations": [
+    {
+      "name": "default",
+      "description": "HubbleClock default visualization",
+      "path": "default",
+      "properties": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "description": "Widget title displayed in the edit interface"
+        }
+      ]
+    }
+  ]
+}

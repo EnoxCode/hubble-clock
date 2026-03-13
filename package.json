@@ -1,0 +1,18 @@
+{
+  "name": "hubble-module-hubble-clock",
+  "version": "0.1.0",
+  "description": "A clock visualization supports multiple timezones",
+  "private": true,
+  "keywords": [
+    "hubble-module"
+  ],
+  "scripts": {
+    "build": "create-hubble-module build",
+    "validate": "create-hubble-module validate",
+    "dev": "create-hubble-module dev"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "create-hubble-module": "*"
+  }
+}
