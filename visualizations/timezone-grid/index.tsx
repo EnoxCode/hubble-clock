@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useWidgetConfig } from '@hubble/sdk';
 import './style.css';
+import { getDayDiff } from './utils';
 
 interface TimezoneEntry {
   label: string;
@@ -11,13 +12,6 @@ interface TimezoneGridConfig {
   timezones?: TimezoneEntry[];
 }
 
-function getDayDiff(now: Date, tz: string): number {
-  const localDay = new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
-  const tzDay = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
-  const localDate = new Date(localDay);
-  const tzDate = new Date(tzDay);
-  return Math.round((tzDate.getTime() - localDate.getTime()) / 86400000);
-}
 
 const TimezoneGridViz = () => {
   const config = useWidgetConfig<TimezoneGridConfig>();
