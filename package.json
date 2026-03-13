@@ -9,9 +9,16 @@
   "scripts": {
     "build": "create-hubble-module build",
     "validate": "create-hubble-module validate",
-    "dev": "create-hubble-module dev"
+    "dev": "create-hubble-module dev",
+    "test": "vitest run",
+    "lint": "eslint ."
   },
   "devDependencies": {
-    "esbuild": "^0.24.0"
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "vitest": "^3.2.4"
   }
 }
