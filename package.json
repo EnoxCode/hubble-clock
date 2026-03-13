@@ -15,6 +15,7 @@
     "lint": "eslint ."
   },
   "devDependencies": {
+    "@hubblehome/module-scaffolding": "latest",
     "@typescript-eslint/eslint-plugin": "^8.57.0",
     "@typescript-eslint/parser": "^8.57.0",
     "esbuild": "^0.24.0",
