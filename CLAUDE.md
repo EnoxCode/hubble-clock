@@ -32,6 +32,62 @@ hubble-clock/
 npm run validate         # Validate manifest.json schema
 npm run dev              # Start Hubble in dev mode with this module loaded
 npm run build            # Build module for distribution
+npm run lint             # Run ESLint
+npm run test             # Run tests (single pass)
+npm run test:watch       # Run tests in watch mode
+```
+
+---
+
+## Testing Strategy
+
+Tests live in `tests/`. Run `npm test` before every commit.
+
+### What to test
+
+**Connector modules** — unit-test the data-processing logic, not the SDK calls:
+- Extract pure transformation functions (parse, normalize, filter) from `connector/index.ts` and test them directly.
+- Mock `sdk` with `vi.fn()` stubs to test that `sdk.emit` is called with the correct topic and shape after a successful fetch.
+- Test error paths: assert `sdk.log.error` is called when the HTTP request rejects.
+- Do **not** test polling intervals or timer behavior — that is Hubble core's responsibility.
+
+**Visualization modules** — test rendering and interaction, not SDK internals:
+- Use `@testing-library/react` with `jsdom` (already configured in `vitest.config.ts`).
+- Render each visualization with representative data and assert the critical text/elements appear.
+- Test user interaction (button clicks, input changes) that drives local `useWidgetState` updates.
+- Mock `useConnectorData`, `useWidgetConfig`, and `useHubbleSDK` from `@hubble/sdk` — these are injected at runtime and should not be exercised in unit tests.
+
+**Hybrid modules** — apply both strategies above to the connector and each visualization independently.
+
+### Suggested test structure
+
+```
+tests/
+├── setup.ts                    # @testing-library/jest-dom import (visualizations only)
+├── connector.test.ts           # Connector logic
+└── visualizations/
+    └── default.test.tsx        # Default visualization rendering
+```
+
+### Mocking the SDK
+
+```ts
+// Connector mock
+const mockSdk = {
+  emit: vi.fn(),
+  schedule: vi.fn((_, cb) => { cb(); return { stop: vi.fn() }; }),
+  http: { get: vi.fn() },
+  log: { info: vi.fn(), warn: vi.fn(), error: vi.fn() },
+  getConfig: vi.fn(() => ({})),
+};
+
+// Client SDK mock (in a vitest setup file or inline)
+vi.mock('@hubble/sdk', () => ({
+  useConnectorData: vi.fn(() => null),
+  useWidgetConfig: vi.fn(() => ({})),
+  useWidgetState: vi.fn((init) => [init, vi.fn()]),
+  useHubbleSDK: vi.fn(() => ({ onButton: vi.fn(() => vi.fn()) })),
+}));
 ```
 
 ---
