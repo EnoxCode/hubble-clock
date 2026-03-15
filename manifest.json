@@ -1,9 +1,11 @@
 {
   "name": "hubble-clock",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Digital and analog clock with configurable date, week number, and day progress bar",
   "minAppVersion": "2.0.0",
-  "type": ["visualization"],
+  "type": [
+    "visualization"
+  ],
   "visualizations": [
     {
       "name": "Clock",
@@ -26,10 +28,22 @@
           "default": "l",
           "description": "Widget size",
           "choices": [
-            { "label": "Small (top bar)", "value": "s" },
-            { "label": "Medium", "value": "m" },
-            { "label": "Large", "value": "l" },
-            { "label": "Extra Large", "value": "xl" }
+            {
+              "label": "Small (top bar)",
+              "value": "s"
+            },
+            {
+              "label": "Medium",
+              "value": "m"
+            },
+            {
+              "label": "Large",
+              "value": "l"
+            },
+            {
+              "label": "Extra Large",
+              "value": "xl"
+            }
           ]
         },
         {
@@ -40,8 +54,14 @@
           "default": "digital",
           "description": "Clock face style",
           "choices": [
-            { "label": "Digital", "value": "digital" },
-            { "label": "Analog", "value": "analog" }
+            {
+              "label": "Digital",
+              "value": "digital"
+            },
+            {
+              "label": "Analog",
+              "value": "analog"
+            }
           ]
         },
         {
@@ -52,8 +72,14 @@
           "default": "24h",
           "description": "Time format",
           "choices": [
-            { "label": "24-hour", "value": "24h" },
-            { "label": "12-hour", "value": "12h" }
+            {
+              "label": "24-hour",
+              "value": "24h"
+            },
+            {
+              "label": "12-hour",
+              "value": "12h"
+            }
           ]
         },
         {
@@ -104,8 +130,14 @@
           "default": "ticks",
           "description": "Analog face marker style",
           "choices": [
-            { "label": "Tick marks only", "value": "ticks" },
-            { "label": "Numbers (1–12)", "value": "numbers" }
+            {
+              "label": "Tick marks only",
+              "value": "ticks"
+            },
+            {
+              "label": "Numbers (1–12)",
+              "value": "numbers"
+            }
           ]
         }
       ]
