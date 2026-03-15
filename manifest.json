@@ -1,15 +1,13 @@
 {
   "name": "hubble-clock",
-  "version": "0.3.0",
-  "description": "A clock visualization supports multiple timezones",
-  "minAppVersion": "0.1.0",
-  "type": [
-    "visualization"
-  ],
+  "version": "1.0.0",
+  "description": "Digital and analog clock with configurable date, week number, and day progress bar",
+  "minAppVersion": "2.0.0",
+  "type": ["visualization"],
   "visualizations": [
     {
-      "name": "Big Clock",
-      "description": "A large clock for your home timezone",
+      "name": "Clock",
+      "description": "Digital and analog clock with multiple size variants",
       "path": "big-clock",
       "mockData": {},
       "properties": [
@@ -21,55 +19,93 @@
           "description": "Widget title displayed in the edit interface"
         },
         {
-          "name": "timezone",
-          "label": "Timezone",
-          "type": "string",
-          "required": false,
-          "default": "Europe/Amsterdam",
-          "description": "IANA timezone string (e.g. America/New_York)"
-        },
-        {
           "name": "size",
           "label": "Size",
           "type": "choice",
           "required": false,
-          "default": "L",
-          "description": "Clock display size",
+          "default": "l",
+          "description": "Widget size",
           "choices": [
-            {
-              "label": "Small",
-              "value": "S"
-            },
-            {
-              "label": "Medium",
-              "value": "M"
-            },
-            {
-              "label": "Large",
-              "value": "L"
-            },
-            {
-              "label": "Extra Large",
-              "value": "XL"
-            }
+            { "label": "Small (top bar)", "value": "s" },
+            { "label": "Medium", "value": "m" },
+            { "label": "Large", "value": "l" },
+            { "label": "Extra Large", "value": "xl" }
           ]
         },
         {
-          "name": "format",
+          "name": "faceStyle",
+          "label": "Face Style",
+          "type": "choice",
+          "required": false,
+          "default": "digital",
+          "description": "Clock face style",
+          "choices": [
+            { "label": "Digital", "value": "digital" },
+            { "label": "Analog", "value": "analog" }
+          ]
+        },
+        {
+          "name": "timeFormat",
           "label": "Time Format",
           "type": "choice",
           "required": false,
           "default": "24h",
-          "description": "24-hour or AM/PM display",
+          "description": "Time format",
           "choices": [
-            {
-              "label": "24h",
-              "value": "24h"
-            },
-            {
-              "label": "AM/PM",
-              "value": "ampm"
-            }
+            { "label": "24-hour", "value": "24h" },
+            { "label": "12-hour", "value": "12h" }
+          ]
+        },
+        {
+          "name": "showSeconds",
+          "label": "Show Seconds",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Show seconds (not available at S size)"
+        },
+        {
+          "name": "showAmPm",
+          "label": "Show AM/PM",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Show AM/PM indicator (only applies in 12h mode)"
+        },
+        {
+          "name": "showDate",
+          "label": "Show Date",
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Show date below the clock"
+        },
+        {
+          "name": "showWeekNumber",
+          "label": "Show Week Number",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Show ISO week number pill next to date"
+        },
+        {
+          "name": "showDayProgress",
+          "label": "Show Day Progress",
+          "type": "boolean",
+          "required": false,
+          "default": false,
+          "description": "Show day progress bar (not available at S size)"
+        },
+        {
+          "name": "analogMarkers",
+          "label": "Analog Markers",
+          "type": "choice",
+          "required": false,
+          "default": "ticks",
+          "description": "Analog face marker style",
+          "choices": [
+            { "label": "Tick marks only", "value": "ticks" },
+            { "label": "Numbers (1–12)", "value": "numbers" }
           ]
         }
       ]

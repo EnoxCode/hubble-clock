@@ -1,39 +1,139 @@
-.big-clock-container {
+/* ── Digital layout ── */
+.clk-digital {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 16px;
 }
 
-.big-clock-time {
-  font-weight: 200;
-  letter-spacing: 0.05em;
-  color: var(--hubble-text-primary);
+.clk-time {
+  display: flex;
+  align-items: baseline;
   line-height: 1;
+  color: var(--dash-text-primary);
   font-variant-numeric: tabular-nums;
 }
 
-.big-clock-time.size-S {
-  font-size: 40px;
+/* Size-specific time scale */
+[data-size="xl"] .clk-hours-minutes { font-size: 100px; font-weight: 200; letter-spacing: -5px; }
+[data-size="xl"] .clk-seconds       { font-size: 40px;  font-weight: 300; color: rgba(255,255,255,0.4); margin-left: 4px; letter-spacing: -1px; }
+
+[data-size="l"] .clk-hours-minutes  { font-size: 64px;  font-weight: 200; letter-spacing: -3px; }
+[data-size="l"] .clk-seconds        { font-size: 26px;  font-weight: 300; color: rgba(255,255,255,0.4); margin-left: 3px; letter-spacing: -1px; }
+
+[data-size="m"] .clk-hours-minutes  { font-size: 40px;  font-weight: 300; letter-spacing: -1.5px; }
+[data-size="m"] .clk-seconds        { font-size: 16px;  font-weight: 400; color: rgba(255,255,255,0.4); margin-left: 2px; }
+
+[data-size="s"] .clk-hours-minutes  { font-size: 16px;  font-weight: 400; letter-spacing: -0.3px; }
+
+/* ── AM/PM indicator ── */
+.clk-ampm {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--dash-text-muted);
+  letter-spacing: 0.5px;
+  margin-left: 4px;
+}
+[data-size="s"] .clk-ampm { font-size: 9px; margin-left: 3px; }
+
+/* ── Date line ── */
+.clk-date-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+[data-size="xl"] .clk-date-line { margin-top: 10px; }
+[data-size="m"] .clk-date-line  { margin-top: 6px; gap: 7px; }
+[data-size="s"] .clk-date-line  { margin-top: 0; gap: 6px; }
+
+.clk-date {
+  font-size: 13px;
+  color: var(--dash-text-secondary);
+}
+[data-size="xl"] .clk-date { font-size: 16px; }
+[data-size="m"] .clk-date  { font-size: 12px; }
+[data-size="s"] .clk-date  { font-size: 11px; }
+
+/* ── Week number pill ── */
+.clk-week-pill {
+  font-size: 9px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.08);
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+[data-size="xl"] .clk-week-pill { font-size: 10px; padding: 2px 7px; }
+[data-size="s"] .clk-week-pill  { font-size: 8px;  padding: 1px 5px; }
+
+/* ── Day progress bar ── */
+.clk-progress-bar {
+  margin-top: 12px;
+  width: 100%;
+  max-width: 240px;
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(255,255,255,0.07);
+  position: relative;
+  overflow: hidden;
+}
+[data-size="xl"] .clk-progress-bar { max-width: 320px; height: 3px; border-radius: 2px; margin-top: 14px; }
+[data-size="m"] .clk-progress-bar  { max-width: 100%; margin-top: 10px; }
+
+.clk-progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: var(--day-pct);
+  border-radius: inherit;
+  background: var(--dash-accent);
+  opacity: 0.6;
 }
 
-.big-clock-time.size-M {
-  font-size: 72px;
+/* ── Analog layout ── */
+.clk-analog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.big-clock-time.size-L {
-  font-size: 100px;
+/* Face sizes */
+[data-size="xl"] .clk-face { width: 180px; height: 180px; }
+[data-size="l"]  .clk-face { width: 140px; height: 140px; }
+[data-size="m"]  .clk-face { width: 100px; height: 100px; }
+[data-size="s"]  .clk-face { width: 24px;  height: 24px; }
+
+/* Hour numbers — numbers variant */
+.clk-hour-num {
+  fill: rgba(255,255,255,0.5);
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
 }
 
-.big-clock-time.size-XL {
-  font-size: 140px;
+/* Second hand uses accent color */
+.clk-hand-second {
+  stroke: var(--dash-accent);
+  opacity: 0.5;
 }
 
-.big-clock-date {
-  font-size: 16px;
-  color: var(--hubble-text-secondary);
-  margin-top: 10px;
-  letter-spacing: 0.03em;
+/* ── S size strip ── */
+.clk-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border-radius: var(--dash-pill-radius);
+  padding: 6px 14px;
+}
+
+.clk-strip-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.12);
 }
