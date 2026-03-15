@@ -87,7 +87,9 @@ index.tsx (timer + config)
 - Renders `.clk-strip` horizontal pill with own backdrop
 - Digital: inline `.clk-hours-minutes` (16px, no seconds)
 - Analog: tiny 24px SVG face (4 major ticks only, no minor, no seconds)
-- Optional divider + date + week pill inline
+- Digital variant: `.clk-strip-divider` (1px vertical line) between time and date
+- Analog variant: no divider between SVG face and date (per source spec HTML)
+- Optional date + week pill inline
 - No seconds, no day progress bar at S size (config flags accepted but ignored)
 
 ### DateLine.tsx
@@ -116,11 +118,38 @@ getISOWeekNumber(date: Date): number        // 1-53
 formatTime(date: Date, format: '12h' | '24h'): { hoursMinutes: string; seconds: string; ampm: string }
 ```
 
+### formatTime details
+
+- **24h mode:** Hours zero-padded (`00`–`23`), e.g. `{ hoursMinutes: "09:05", seconds: "07", ampm: "" }`
+- **12h mode:** Hours unpadded (`1`–`12`), midnight = 12, noon = 12. e.g. `{ hoursMinutes: "2:05", seconds: "07", ampm: "PM" }`
+- Minutes and seconds always zero-padded to 2 digits
+- `ampm` returns empty string in 24h mode
+
+### ClockConfig type
+
+```ts
+interface ClockConfig {
+  size: 's' | 'm' | 'l' | 'xl';
+  faceStyle: 'digital' | 'analog';
+  timeFormat: '12h' | '24h';
+  showSeconds: boolean;
+  showAmPm: boolean;
+  showDate: boolean;
+  showWeekNumber: boolean;
+  showDayProgress: boolean;
+  analogMarkers: 'ticks' | 'numbers';
+}
+```
+
 ---
 
 ## CSS
 
 Single `style.css` using `--dash-*` CSS variables from the dashboard design system (not `--hubble-*` — those are for admin/studio UI).
+
+**Note:** CLAUDE.md says to use `--hubble-*` variables, but that guidance applies to admin/studio UI. The dashboard runtime provides a separate `--dash-*` namespace (defined in `hubble-dash-ui/src/styles/dash-base.css`), which is what visualization widgets on the live dashboard should use. The source spec's CSS uses `--dash-*` throughout.
+
+**Exception for `--day-pct`:** The `DayProgressBar` component sets a `--day-pct` CSS custom property via React's `style` prop. CLAUDE.md forbids inline styles, but setting a single CSS custom property for dynamic data binding is the standard React pattern and is not equivalent to inline styling for layout/appearance. This is the same approach the source spec prescribes.
 
 Size variants use `[data-size="xl|l|m|s"]` attribute selectors. CSS follows the spec verbatim for:
 - Digital layout and size-specific typography
@@ -136,9 +165,12 @@ Size variants use `[data-size="xl|l|m|s"]` attribute selectors. CSS follows the 
 
 Update `manifest.json`:
 - Module metadata: name "Clock", version "1.0.0", minAppVersion "2.0.0"
-- Replace big-clock properties with 9 new config properties from spec: `size`, `faceStyle`, `timeFormat`, `showSeconds`, `showAmPm`, `showDate`, `showWeekNumber`, `showDayProgress`, `analogMarkers`
+- Replace big-clock properties (nested under `visualizations[0].properties`) with 9 new config properties from spec: `size`, `faceStyle`, `timeFormat`, `showSeconds`, `showAmPm`, `showDate`, `showWeekNumber`, `showDayProgress`, `analogMarkers`
 - Remove old properties: `title`, `timezone`, `format`
 - Keep `timezone-grid` visualization entry unchanged
+- Size choice values use lowercase (`s`, `m`, `l`, `xl`) — the old manifest used uppercase; this is an intentional change per the source spec
+
+**Timezone support intentionally dropped.** The old big-clock had a `timezone` property (default: `Europe/Amsterdam`). The new clock always shows system/browser local time — timezone display is the responsibility of the `timezone-grid` visualization. This is a deliberate simplification per the source spec.
 
 ---
 
@@ -206,5 +238,5 @@ After implementation:
 - Week pill requires showDate to also be true
 - No colon blink (static colon)
 - All clocks update every 1 second; analog second hand uses rAF for smooth sweep
-- Day progress bar derived from time state (no separate timer)
+- Day progress bar derived from time state (no separate timer — recalculates every second via the shared timer, but the value only visually changes once per minute; this is simpler than a separate 60s interval)
 - No footer on any size (no data source, nothing goes stale)
