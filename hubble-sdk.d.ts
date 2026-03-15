@@ -67,7 +67,31 @@ export interface ModuleManifest {
   visualizations?: VisualizationEntry[];
   dependencies?: { name: string; minVersion: string }[];
   hardwareButtons?: Record<string, string>;
-  endpoints?: { name: string; method: string; path: string; description: string }[];
+  endpoints?: {
+    name: string;
+    method: string;
+    path: string;
+    description: string;
+    summary?: string;
+    public?: boolean;
+    body?: {
+      type: 'object';
+      required?: string[];
+      properties: Record<string, { type: string; description?: string; example?: unknown }>;
+      example?: unknown;
+    };
+    querystring?: {
+      type: 'object';
+      properties: Record<string, { type: string; description?: string }>;
+    };
+    response?: {
+      [statusCode: number]: {
+        type: 'object';
+        properties: Record<string, unknown>;
+        example?: unknown;
+      };
+    };
+  }[];
   properties?: ModuleProperty[];
   /** OAuth configuration for modules requiring third-party authorization. */
   oauth?: { provider: 'google'; scopes: string[] };
@@ -189,6 +213,14 @@ export interface ServerSdk {
 
   /** Send a notification to the dashboard. */
   notify(message: string, options?: NotifyOptions): void;
+
+  /** Get the config object for every widget instance using this module. */
+  getWidgetConfigs(): Record<string, unknown>[];
+
+  /** Register a handler for custom API endpoint calls declared in manifest "endpoints". */
+  onApiCall(
+    handler: (payload: { action: string; params: Record<string, string>; body: unknown }) => Promise<unknown>
+  ): void;
 }
 
 // ─── Client SDK ───────────────────────────────────────────────────
@@ -205,6 +237,9 @@ export interface ClientSdk {
 
   /** Read cached connector data received via WebSocket. */
   getConnectorState(topic?: string): unknown | null;
+
+  /** Fetch the latest connector state from the server (REST fallback for initial load). */
+  requestLatestData(moduleName?: string, topic?: string): Promise<unknown>;
 
   /** Expand widget to full page. */
   expandWidget(): void;
@@ -257,5 +292,5 @@ export declare function useHubbleSDK(): ClientSdk;
 /** Connector entry point: receives ServerSdk, optionally returns stop function. */
 export type HubbleConnector = (sdk: ServerSdk) => { stop?: () => void } | void;
 
-/** Visualization component: receives connector data as prop. */
-export type HubbleVisualization<T = unknown> = React.ComponentType<{ data: T | null }>;
+/** Visualization component. Use useConnectorData(), useWidgetConfig(), useHubbleSDK() hooks inside. */
+export type HubbleVisualization = React.ComponentType;
