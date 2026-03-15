@@ -16,11 +16,14 @@
   },
   "devDependencies": {
     "@hubblehome/module-scaffolding": "latest",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@typescript-eslint/eslint-plugin": "^8.57.0",
     "@typescript-eslint/parser": "^8.57.0",
     "esbuild": "^0.24.0",
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "jsdom": "^27.0.1",
     "vitest": "^3.2.4"
   }
 }
