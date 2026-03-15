@@ -2,7 +2,7 @@
   "name": "hubble-clock",
   "version": "2.0.0",
   "description": "Digital and analog clock with configurable date, week number, and day progress bar",
-  "minAppVersion": "2.0.0",
+  "minAppVersion": "0.3.0",
   "type": [
     "visualization"
   ],
